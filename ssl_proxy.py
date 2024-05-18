@@ -60,8 +60,7 @@ class Connection:
 async def copy(r: asyncio.StreamReader, w: asyncio.StreamWriter):
     while (data:=await r.read(2**16)):
         w.write(data)
-        if w.transport.get_write_buffer_size() > 2**16:
-            await w.drain()
+        await w.drain()
 
 @error_logger
 async def on_ssl_connect(connection: Connection, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
@@ -93,6 +92,7 @@ async def on_connect(reader: asyncio.StreamReader, writer: asyncio.StreamWriter)
             local_sock.write(b'HTTP/1.1 200 Connection established\r\n\r\n')
             await local_sock.drain()
             connection.data = await local_sock.readexactly(1)
+            print(connection.data)
             connection.is_ssl = connection.data[0]==0x16
             host, port = socket(connection.socket_address)
             if connection.is_ssl:
