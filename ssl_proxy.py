@@ -5,7 +5,6 @@ import ssl
 from functools import *
 from itertools import *
 from operator import *
-import aiohttp
 import http.server
 import io
 import traceback

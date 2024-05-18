@@ -16,11 +16,11 @@ class EventHandler:
         return None
 
     async def data_from_client(self, data: bytes):
-        # print(data)
+        print('from client', id(self.connection), self.connection.url, data)
         await self.connection.write_to_server(data)
 
     async def data_from_server(self, data: bytes):
-        # print(data)
+        print('from server', id(self.connection), self.connection.url, data)
         await self.connection.write_to_client(data)
 
 
