@@ -92,7 +92,6 @@ async def on_connect(reader: asyncio.StreamReader, writer: asyncio.StreamWriter)
             local_sock.write(b'HTTP/1.1 200 Connection established\r\n\r\n')
             await local_sock.drain()
             connection.data = await local_sock.readexactly(1)
-            print(connection.data)
             connection.is_ssl = connection.data[0]==0x16
             host, port = socket(connection.socket_address)
             if connection.is_ssl:
