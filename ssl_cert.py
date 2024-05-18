@@ -16,6 +16,8 @@ async def exec_command(*command, input=None):
 @error_logger
 async def cert_init():
     certs = pathlib.Path(__file__).with_name('.certs')
+    if not certs.exists():
+        certs.mkdir()
     root_key = certs / 'ssl_proxy_root_CA.key'
     root_pem = certs / 'ssl_proxy_root_CA.pem'
     if not (root_key.exists()
